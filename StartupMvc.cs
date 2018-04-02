@@ -21,6 +21,7 @@ namespace firstApp
         {
             //Register Interface and Implementations Here
             services.AddSingleton<IGreetings,Greetings>();
+            services.AddScoped<IRestaurantRepository, InMemoryRestaurantRepository>();
             services.AddMvc();
             
         }
