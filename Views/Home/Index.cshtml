@@ -1,5 +1,4 @@
-@model IEnumerable<firstApp.Models.Restaurant>
-
+@model firstApp.ViewModels.HomeIndexViewModel
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,8 +8,9 @@
     <title>Home</title>
 </head>
 <body>
+    <h1>@Model.CurrentMessage</h1>
     <table>
-        @foreach(var restaurant in Model)
+        @foreach(var restaurant in Model.Restaurants)
         {
             <tr>
                 <td>@restaurant.Id</td>

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using firstApp.Models;
 using firstApp.Repository;
+using firstApp.ViewModels;
 
 namespace firstApp.Controllers
 {
@@ -8,9 +9,13 @@ namespace firstApp.Controllers
     {
         private IRestaurantRepository _restaurantRepository;
 
-        public HomeController (IRestaurantRepository restaurantRepository)
+        private IGreetings _greetings;
+
+        public HomeController (IRestaurantRepository restaurantRepository,
+                                IGreetings greetings)
         {
             _restaurantRepository = restaurantRepository;
+            _greetings = greetings;
         }
 
         //Return a View i.e. some view .cshtml instead of just a string or objectresult
@@ -19,7 +24,9 @@ namespace firstApp.Controllers
             // var model = new Restaurant { 
             //     Id = 1 , Name = "Over Story"
             // };
-            var model = _restaurantRepository.GetAll();
+            var model = new HomeIndexViewModel();
+            model.Restaurants = _restaurantRepository.GetAll();
+            model.CurrentMessage = _greetings.GetGreetings();
 
             return View(model); //Looks for Index.cshtml in Views folder
             // return View("Home"); // you can have different view name by default its the name of the Action
